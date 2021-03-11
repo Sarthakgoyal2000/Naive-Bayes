@@ -1,0 +1,32 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+df=pd.read_csv("mobile_price.csv")
+df
+
+
+******************************************
+
+X=df[['battery_power','clock_speed','int_memory','ram','n_cores']]
+y=df['price_range']
+# Split dataset into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(X_train,y_train)
+
+*************************************************
+
+
+y_pred=model.predict(X_test)
+model.predict([[1512,2.2,36,2032,6]])
+
+
+*************************************************
+
+from sklearn.metrics import accuracy_score, confusion_matrix
+print("Accuracy:",accuracy_score(y_test, y_pred))
+cm = confusion_matrix(y_test, y_pred)
+print(cm)
